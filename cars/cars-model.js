@@ -16,8 +16,24 @@ function addCar(car) {
     .then(([id]) => getCarbyId(id));
 }
 
+function updateCar(id, changes) {
+  return db("cars")
+    .where({ id })
+    .update(changes)
+    .then(count => (count > 0 ? getCarbyId(id) : null));
+}
+
+function removeCar(id) {
+  return db("cars")
+    .where({ id })
+    .del();
+}
+
+
 module.exports = {
   get,
   getCarbyId,
-  addCar
+  addCar,
+  updateCar,
+  removeCar
 };
